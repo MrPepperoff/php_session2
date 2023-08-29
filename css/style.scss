@@ -1,0 +1,128 @@
+html{
+    height: 100%;
+}
+body{
+    min-height: 100%;
+
+    background: #aff;
+    display: flex;
+    flex-direction: column;
+}
+.header{
+    background: #044;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    & h1{
+        color: #bbb;
+        text-transform: uppercase;
+    }
+    & input::-webkit-input-placeholder{
+        color: rgba($color: #000000, $alpha: .3);
+        text-transform: lowercase;
+    }
+    &__btn{
+        color: #fff;
+        font-weight: bold;
+        &:hover{
+            color: #bbb;
+        }
+        &:first-child:active{
+            color: #888;
+            border: 1px solid #888;
+            border-radius: 5px;
+        }
+    }
+    &__user{
+        color: #bbb;
+    }
+}
+.user{
+    text-align: right;
+    & p{
+        padding: 0;
+        margin: 0;
+    }
+    &__name{
+        text-transform: capitalize;
+    }
+    &__close{
+        display: inline-block;
+        // width: 15px;
+        // height: 15px;
+        // border-radius: 50%;
+        overflow: hidden;
+        // font-size: 10px;
+        text-align: center;
+        // background: #a00;
+        color: #bbb;
+        text-decoration: none;
+        transition: 0.3s;
+        &:hover{
+            background: #300;
+        }
+    }
+}
+.main{
+    padding-top: 10px;
+    background: #ccc;
+    flex-grow: 1;
+    &__section{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    &__backet{
+        border: 1px solid #044;
+        border-radius: 5px;
+        background: #bbb;
+    }
+}
+.footer{
+    background: #044;
+    padding: 10px 0;
+}
+
+.btn_card{
+    position: relative;
+    border: 1px solid #a00;
+    color: #fff;
+    background: #777;
+    overflow: hidden;
+    &::after{
+        content: 'не работает';
+        position: absolute;
+        line-height: 0.8;
+        top: 50%;
+        margin-top: -0.4rem;
+        left: 0;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #fff;
+        text-shadow: 0 0 2px #300,0 0 2px #a00, 0 0 2px #f00;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        transition: 0.2s;
+    }
+    &:hover{
+        background: #333;
+        border: 1px solid #a00; 
+        &::after{
+            opacity: 1;
+            transition: 0.2s;    
+        }
+    }
+}
+.backet{
+    &__card{
+        display: flex;
+        flex-direction: row;
+        height: 100px;
+    }
+    &__img{
+        width: auto;
+        height: 100%;
+    }
+    &__title{
+        padding-bottom: 5px;
+        border-bottom: 1px solid #333;
+    }
+}
