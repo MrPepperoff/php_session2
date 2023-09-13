@@ -28,7 +28,30 @@ function products($link){
     }
     return $items;
 }
+function orders($link){
 
+    $sql = "SELECT
+         u.id, 
+         p.id,
+         p.image,
+         p.title,
+         p.price,
+         o.user_id,
+         o.product_id
+         
+         FROM orders o 
+         INNER JOIN users u ON u.id = o.user_id
+         INNER JOIN products p ON p.id = o.product_id";
+
+    $result = mysqli_query($link, $sql);
+
+
+    $items= null;
+    while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+        $items[]= $row;
+    }
+    return $items;
+}
 function selectOneData($link, $data, $table){
 
     $sqlWhere = (is_array($data) && count($data) > 0)? "WHERE email = '".$data['email']."' AND password = '".md5($data['password'])."'": "";

@@ -5,6 +5,8 @@
 
     $link = connect();
     $products = products($link);
+    $orders = orders($link);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,18 +25,16 @@
                     <h1>Session</h1>
                 </div>
                 <div class="col-10">
-
-
-                    <?php 
+                    <?php
                     if(!isset($_SESSION['login'])){?>
                         <form action="login/login.php" method='POST' class="row g-3 justify-content-end">
                             <div class="col-auto">
                                 <label for="inputEmail" class="visually-hidden">Почта</label>
-                                <input type="text" class="form-control" id="inputEmail" name='email' placeholder="Почта...">
+                                <input type="text" class="form-control" id="inputEmail" name='email' placeholder="Почта... 1-2@mail.ru">
                             </div>
                             <div class="col-auto">
                                 <label for="inputPassword2" class="visually-hidden">Пароль</label>
-                                <input type="password" class="form-control" id="inputPassword2" name="password" placeholder="Пароль...">
+                                <input type="password" class="form-control" id="inputPassword2" name="password" placeholder="Пароль... {123}">
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn header__btn">Войти</button>
@@ -51,11 +51,7 @@
 										<a href="login/logout.php" class="btn header__btn">Выйти</a>
 									</p>
 								</div>
-                        <?php endif; }?>
-
-
-
-                    
+                    <?php endif; }?>
                 </div>
             </div>
         </div>
@@ -88,15 +84,27 @@
                 <div class="col-4 main__backet backet">
                     <h4>Корзина</h4>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card backet__card">
-                                <img src="images/<?php echo $product['image']; ?>" class="card-img-top backet__img" alt="...">
-                                <div class="card-body  backet__body">
-                                    <h5 class="card-title  backet__title"><?php echo $product['title']; ?></h5>
-                                    <p class="card-price  backet__price"><?php echo $product['price']; ?> руб.</p>
-                                </div>
-                            </div> 
-                        </div>   
+                        <?php
+
+                        if(isset($_SESSION['backet'])):
+                            foreach ($orders as $order) :
+
+
+                                if($_SESSION['backet'] == $order['user_id']) :
+                                ?>
+                                <div class="col-12">
+                                    <div class="card backet__card">
+                                        <img src="images/<?php echo $order['image']; ?>" class="card-img-top backet__img" alt="...">
+                                        <div class="card-body  backet__body">
+                                            
+                                            <h5 class="card-title backet__title"> <?php echo $order['title']; ?></h5>
+                                            <p class="card-price backet__price"><?php echo $order['price']; ?> руб.</p>
+                                        </div>
+                                    </div> 
+                                </div> 
+                        <?php endif;
+                        endforeach;
+                            endif; ?>  
                     </div>
                 </div>  
             </div>

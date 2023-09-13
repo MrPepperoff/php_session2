@@ -2,7 +2,6 @@
     session_start();
     require_once("../config.php");
 	require_once("../lib/db.php");
-
     $status = [
 		"error" => ["code" => 501, "msg" => "Error"],
 		"error_data" => ["code" => 502, "msg" => "Неверные данные"],
@@ -27,6 +26,7 @@
             }
             else{
                 $_SESSION['login'] = md5($result['email']);
+                $_SESSION['backet'] = $result['id'];
     
                 header("location: ".BASE_URL."index.php?status=".json_encode($status["success"]));
                 die();
