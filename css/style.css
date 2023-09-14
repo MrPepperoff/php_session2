@@ -125,4 +125,27 @@ body {
 .backet__title {
   padding-bottom: 5px;
   border-bottom: 1px solid #333;
+}
+
+.checkbox label {
+  color: #fff;
+  text-align: center;
+  line-height: 0.7;
+  font-size: 12px;
+  cursor: pointer;
+}
+.checkbox label:hover {
+  color: #bbb;
+}
+.checkbox input {
+  display: none;
+}
+.checkbox input:checked ~ label {
+  color: #aaa;
+  border: 1px solid #aaa;
+}
+
+.alert-danger {
+  background: #faa;
+  border: 1px solid #a00;
 }/*# sourceMappingURL=style.css.map */

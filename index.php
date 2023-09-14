@@ -2,6 +2,7 @@
     session_start();
     require_once('config.php');
     require_once('lib/db.php');
+    require_once("lib/functions.php");
 
     $link = connect();
     $products = products($link);
@@ -26,15 +27,28 @@
                 </div>
                 <div class="col-10">
                     <?php
-                    if(!isset($_SESSION['login'])){?>
-                        <form action="login/login.php" method='POST' class="row g-3 justify-content-end">
+
+                    if(isset($_GET['status'])){
+                
+                        $status = jsonConvertArray($_GET['status']);
+                
+                        $class = status_request($status['code']);
+                        // echo $class;
+                    } 
+                    if(!isset($_SESSION['login'])){
+                        ?>
+                    
+                        <form action="login/login.php" method='POST' class="row g-3 justify-content-end align-items-center">
                             <div class="col-auto">
-                                <label for="inputEmail" class="visually-hidden">Почта</label>
-                                <input type="text" class="form-control" id="inputEmail" name='email' placeholder="Почта... 1-2@mail.ru">
+                                <input type="text" class="form-control <?php echo $class;?>" id="inputEmail" name='email' placeholder="Почта... 1-2@mail.ru">
                             </div>
                             <div class="col-auto">
-                                <label for="inputPassword2" class="visually-hidden">Пароль</label>
-                                <input type="password" class="form-control" id="inputPassword2" name="password" placeholder="Пароль... {123}">
+                                <input type="password" class="form-control <?php echo $class;?>" id="inputPassword2" name="password" placeholder="Пароль... {123}">
+                            </div>
+
+                            <div class="col-auto checkbox">
+                                <input type="checkbox" name="save" id="save">
+                                <label class='btn' for="save">запомнить<br> меня</label>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn header__btn">Войти</button>
@@ -51,11 +65,35 @@
 										<a href="login/logout.php" class="btn header__btn">Выйти</a>
 									</p>
 								</div>
-                    <?php endif; }?>
+                    <?php endif; }
+                    if(isset($_GET['auth']) && $_GET['auth'] == "1"){
+                        // запоминмаем пользователя в куку
+                        setcookie("auth", $_SESSION['login'], time() + 3600);
+                    }
+                    if(isset($_GET['auth']) && $_GET['auth'] == "0"){
+                        setcookie("auth", "", time() - 3600);
+                        $_SESSION['login'] = null;
+                        header("location: index.php");
+                        die();
+                    }
+                    if(isset($_COOKIE['auth']) && !empty($_COOKIE['auth'])){
+                        $link = connect();
+                        $user = searchUserEmail($link, $_COOKIE['auth']);
+                        if($user != false){
+                            $_SESSION['login'] = $_COOKIE['auth'];
+                        }
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
     </header>
+
+    
+
+
+
     <main class="main">
         
         <div class="container">

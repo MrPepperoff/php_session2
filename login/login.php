@@ -29,6 +29,13 @@
                 $_SESSION['backet'] = $result['id'];
     
                 header("location: ".BASE_URL."index.php?status=".json_encode($status["success"]));
+                if(isset($_POST['save']) && $_POST['save'] == "on"){
+                    // запоминмаем пользователя в куку
+                    header("location: ".BASE_URL."index.php?status=".json_encode($status["success"])."&auth=1&email=".md5($result['email']));
+                }
+                else{
+                    header("location: ".BASE_URL."index.php?status=".json_encode($status["success"])."&email=".md5($result['email']));
+                }
                 die();
             }
         }    

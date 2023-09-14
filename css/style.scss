@@ -127,3 +127,28 @@ body{
         border-bottom: 1px solid #333;
     }
 }
+.checkbox{
+    & label{
+        color: #fff;
+        text-align: center;
+        line-height: 0.7;
+        font-size: 12px;
+        cursor: pointer;
+        &:hover{
+            color: #bbb;
+        }
+        
+    }
+    & input{
+        display: none; 
+        &:checked ~ label{
+            color: #aaa;
+            border: 1px solid #aaa;
+        }
+    }
+    
+}
+.alert-danger{
+    background: #faa;
+    border: 1px solid #a00;
+}
